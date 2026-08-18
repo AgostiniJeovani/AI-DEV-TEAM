@@ -38,6 +38,12 @@ Primeiro execute a validação automatizada descrita em
 [`docs/testing.md`](docs/testing.md). Depois faça os smoke tests comportamentais
 com os prompts prontos naquele documento.
 
+### Se você quer acompanhar a evolução do sistema
+
+Leia [`docs/NEXT_STEPS.md`](docs/NEXT_STEPS.md). Ele contém o backlog da semana,
+a trilha de pesquisa e os critérios para evoluir do catálogo atual para um
+primeiro loop de agentes controlado.
+
 ## O que é
 
 O AI-DEV-TEAM é um catálogo versionado de agentes especialistas para Codex.
@@ -101,13 +107,7 @@ system-architect ───────→ security-engineer quando necessário
         ↓
 uiux-designer / frontend-engineer / backend-engineer / data-ai-engineer
         ↓
-qa-engineer
-        ↓
-code-reviewer
-        ↓
-devops-engineer
-        ↓
-technical-writer
+qa-engineer → code-reviewer → devops-engineer → technical-writer
 ```
 
 Esse fluxo é adaptável. Tarefas pequenas podem pular etapas; mudanças com
