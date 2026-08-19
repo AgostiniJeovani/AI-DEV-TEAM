@@ -1,26 +1,27 @@
-# Protocolo de handoff
+# Handoff Protocol
 
-O handoff é o contrato entre agentes. Ele reduz repetição, torna decisões auditáveis e deixa claro o que ainda precisa de julgamento humano.
+A handoff is the contract between agents. It reduces repetition, makes
+decisions auditable, and clarifies what still needs human judgment.
 
-## Formato
+## Format
 
 ```text
 HANDOFF
-De: <agente>
-Para: <agente ou usuário>
-Objetivo: <resultado esperado>
-Contexto: <repositório, requisitos e evidências analisados>
-Decisões: <decisões tomadas e justificativas>
-Artefatos: <arquivos, diagramas, testes ou links>
-Pendências: <questões abertas e informação faltante>
-Riscos: <risco, impacto e mitigação>
-Próximo passo: <ação concreta, responsável e condição de término>
+From: <agent>
+To: <agent or user>
+Objective: <expected result>
+Context: <repository, requirements, and evidence analyzed>
+Decisions: <decisions made and reasons>
+Artifacts: <files, diagrams, tests, or links>
+Open items: <open questions and missing information>
+Risks: <risk, impact, and mitigation>
+Next step: <concrete action, owner, and completion condition>
 ```
 
-## Regras
+## Rules
 
-- Fatos observados e inferências devem ser separados.
-- O próximo agente deve conseguir começar sem repetir toda a investigação.
-- Decisões irreversíveis, riscos altos e ações externas devem ser destacados.
-- Um handoff não é aprovação automática: o destinatário ainda valida o próprio escopo.
-
+- Separate observed facts from inferences.
+- The next agent should be able to start without repeating the investigation.
+- Highlight irreversible decisions, high risks, and external actions.
+- A handoff is not automatic approval: the recipient still validates its own
+  scope.

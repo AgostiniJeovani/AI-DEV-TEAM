@@ -1,20 +1,28 @@
-# Fluxo de trabalho
+# Workflow
 
-## Descoberta
+## Discovery
 
-`project-configurator` mapeia o projeto. `requirements-analyst` esclarece o problema. `system-analyst` modela domínio, fluxos e contratos.
+`project-configurator` maps the project. `requirements-analyst` clarifies the
+problem. `system-analyst` models the domain, flows, and contracts.
 
-## Decisão
+## Decision
 
-`system-architect` consolida as informações, registra decisões e entrega um plano. `security-engineer` participa cedo quando há dados sensíveis, autenticação, pagamentos, integrações externas ou IA.
+`system-architect` consolidates information, records decisions, and delivers
+a plan. `security-engineer` joins early when there is sensitive data,
+authentication, payment, external integration, or AI.
 
-## Construção
+## Construction
 
-`uiux-designer`, `frontend-engineer`, `backend-engineer` e `data-ai-engineer` trabalham conforme a divisão de responsabilidades. O arquiteto continua disponível para decisões de fronteira, mas não implementa.
+`uiux-designer`, `frontend-engineer`, `backend-engineer`, and
+`data-ai-engineer` work according to their responsibility split. The architect
+remains available for boundary decisions but does not implement.
 
-## Validação e entrega
+## Validation and delivery
 
-`qa-engineer` valida comportamento e risco. `code-reviewer` revisa o diff de forma independente. `devops-engineer` prepara a entrega e a operação. `technical-writer` atualiza a documentação.
+`qa-engineer` validates behavior and risk. `code-reviewer` independently
+reviews the diff. `devops-engineer` prepares delivery and operations.
+`technical-writer` updates documentation.
 
-O fluxo pode ser reduzido para tarefas pequenas e de baixo risco. Ele deve ser ampliado para mudanças críticas, dados pessoais, pagamentos, modelos de IA, migrações, disponibilidade ou exposição pública.
-
+The flow may be reduced for small, low-risk tasks. It should be expanded for
+critical changes, personal data, payments, AI models, migrations, availability,
+or public exposure.
