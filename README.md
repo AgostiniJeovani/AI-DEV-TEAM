@@ -1,100 +1,126 @@
 # AI-DEV-TEAM
 
-Time de agentes especializados para apoiar projetos de software com descoberta,
-requisitos, arquitetura, design, implementação, dados/IA, qualidade, segurança,
-operação e documentação.
+A team of specialized agents supporting software projects across discovery,
+requirements, architecture, design, implementation, data/AI, quality,
+security, operations, and documentation.
 
-Este README é o ponto de entrada. Ele não tenta ensinar todos os detalhes de
-uma vez: mostra o caminho correto e envia você para o documento certo quando o
-assunto ficar específico.
+> [!WARNING]
+> **Experimental study repository.** AI-DEV-TEAM is unfinished and is being
+> developed as a public study of prompt engineering, context engineering, and
+> loop engineering. It is not a production-ready agent framework. Review the
+> scripts, permissions, agent definitions, and Windows junction behavior before
+> using it. Run it only on systems and projects you control, do not provide
+> secrets, and clone or extend it at your own responsibility. The long-term
+> goal is a provider-neutral framework with bounded autonomy, evidence,
+> evaluation, maker/checker verification, recovery, and runtime adapters.
 
-## Comece aqui
+This README is the entry point. It does not teach every detail at once: it
+shows the right path and sends you to the relevant document when a topic gets
+specific.
 
-### Se você está conhecendo o projeto
+## Start here
 
-Leia somente estas seções deste README:
+### If you are new to the project
 
-1. [O que é](#o-que-é);
-2. [Como o repositório está organizado](#como-o-repositório-está-organizado);
-3. [Como os agentes trabalham](#como-os-agentes-trabalham);
-4. [Primeiro uso](#primeiro-uso).
+Read only these sections first:
 
-Depois pare de ler este arquivo e siga o documento indicado em **Próximo
-passo**. Não é necessário ler o README inteiro em ordem.
+1. [What this is](#what-this-is);
+2. [Repository structure](#repository-structure);
+3. [How the agents work](#how-the-agents-work);
+4. [First use](#first-use).
 
-### Se você quer configurar o time
+Then choose the path in **Recommended reading order** below. Open
+`docs/NEXT_STEPS.md` only if you are studying or contributing to the loop
+engineering work. You do not need to read the README from top to bottom.
 
-Vá diretamente para [`setup/README.md`](setup/README.md). Ele explica a
-junction em linguagem simples, executa a automação e mostra como desfazer.
+### If you want to configure the team
 
-### Se você quer entender os agentes
+Go directly to [`setup/README.md`](setup/README.md). It explains the Windows
+junction in plain language, runs the automation, and shows how to undo it.
 
-Leia [`agents/README.md`](agents/README.md) e depois os `.toml` na ordem do
-fluxo. Os TOML são a fonte de verdade das instruções de cada agente.
+### If you want to understand the agents
 
-### Se você quer testar
+Read [`agents/README.md`](agents/README.md), then read the `.toml` files in
+workflow order. The TOML files are the source of truth for agent instructions.
 
-Primeiro execute a validação automatizada descrita em
-[`docs/testing.md`](docs/testing.md). Depois faça os smoke tests comportamentais
-com os prompts prontos naquele documento.
+### If you want to test
 
-### Se você quer acompanhar a evolução do sistema
+Start with [`docs/testing.md`](docs/testing.md) for automated validation and
+behavioral smoke tests.
 
-Leia [`docs/NEXT_STEPS.md`](docs/NEXT_STEPS.md). Ele contém o backlog da semana,
-a trilha de pesquisa e os critérios para evoluir do catálogo atual para um
-primeiro loop de agentes controlado.
+### If you want to follow system evolution
 
-## O que é
+Read [`docs/NEXT_STEPS.md`](docs/NEXT_STEPS.md). It contains the milestone
+backlog, research path, and criteria for evolving from the current catalog to a
+controlled agent loop. The research artifacts are in
+[`docs/research/README.md`](docs/research/README.md).
 
-O AI-DEV-TEAM é um catálogo versionado de agentes especialistas para Codex.
-Cada agente possui uma responsabilidade principal, limites explícitos, modo de
-autonomia e instruções de handoff.
+### Recommended reading order
 
-A proposta é dividir o trabalho sem criar sobreposição desnecessária:
+You do not need to read every Markdown file before trying the catalog. Use this
+short path:
 
-- agentes de descoberta e análise entendem o problema;
-- agentes de arquitetura definem decisões e planos;
-- agentes de engenharia implementam quando autorizados;
-- agentes de QA, revisão e segurança verificam o resultado;
-- DevOps e documentação preparam a operação e a continuidade.
+1. This README, through **First use**.
+2. [`setup/README.md`](setup/README.md), if you want to activate the agents.
+3. [`agents/README.md`](agents/README.md), then the agent TOML files you need.
+4. [`docs/testing.md`](docs/testing.md), to validate the setup.
+5. [`docs/task-contract.md`](docs/task-contract.md), when studying controlled
+   task execution.
 
-Princípios que não devem ser perdidos:
+The files under `docs/evaluation/`, `docs/research/`, and
+[`docs/NEXT_STEPS.md`](docs/NEXT_STEPS.md) describe the laboratory work used to
+evolve the project. They are important for contributors, but they are not
+required reading for a first agent activation.
 
-- leitura do contexto antes de agir;
-- responsabilidades claras;
-- handoffs explícitos;
-- anti-overengineering;
-- security by design;
-- evidência sobre preferência;
-- autonomia proporcional ao papel;
-- mudanças reversíveis e autorizadas;
-- nenhum modelo ou provedor fixado sem necessidade.
+## What this is
 
-## Como o repositório está organizado
+AI-DEV-TEAM is a versioned catalog of specialist agents for Codex. Each agent
+has a primary responsibility, explicit boundaries, an autonomy mode, and
+handoff instructions.
+
+The goal is to divide work without unnecessary overlap:
+
+- discovery and analysis agents understand the problem;
+- architecture agents define decisions and plans;
+- engineering agents implement when authorized;
+- QA, review, and security agents verify the result;
+- DevOps and documentation prepare operations and continuity.
+
+Principles that must not be lost:
+
+- read context before acting;
+- keep responsibilities clear;
+- use explicit handoffs;
+- avoid over-engineering;
+- apply security by design;
+- prefer evidence over preference;
+- give autonomy proportional to the role;
+- keep changes reversible and authorized;
+- do not fix a model or provider without need.
+
+## Repository structure
 
 ```text
 AI-DEV-TEAM/
-├── README.md                         ← este ponto de entrada
-├── AGENTS.md                         ← regras globais do time
+├── README.md                         ← entry point
+├── AGENTS.md                         ← global team rules
 ├── .gitignore
-├── agents/                           ← agentes Codex versionados
-├── docs/                             ← fluxo, contratos e testes
-├── setup/                            ← tutorial de configuração
-├── scripts/                          ← validação e automação Windows
-├── skills/                           ← catálogo de skills planejadas
-├── tools/                            ← espaço para utilitários/contratos
-└── adapters/                         ← integrações futuras com runtimes
+├── agents/                           ← versioned Codex agents
+├── docs/                             ← workflow, contracts, tests, research
+├── setup/                            ← beginner-friendly configuration guide
+├── scripts/                          ← Windows validation and automation
+├── skills/                           ← planned reusable skills
+├── tools/                            ← shared contracts and utilities
+└── adapters/                         ← future runtime integrations
 ```
 
-O que está funcional nesta versão: `agents/`, `docs/`, `setup/` e `scripts/`.
+The functional parts of this version are `agents/`, `docs/`, `setup/`, and
+`scripts/`. `skills/`, `tools/`, and `adapters/` are prepared and documented,
+but do not yet contain concrete implementations.
 
-`skills/`, `tools/` e `adapters/` estão preparados e documentados, mas ainda
-não possuem implementações concretas. Não confunda uma pasta planejada com uma
-capacidade já carregada pelo Codex.
+## How the agents work
 
-## Como os agentes trabalham
-
-Fluxo recomendado para um projeto novo:
+Recommended flow for a new project:
 
 ```text
 project-configurator
@@ -103,183 +129,176 @@ requirements-analyst
         ↓
 system-analyst
         ↓
-system-architect ───────→ security-engineer quando necessário
+system-architect ───────→ security-engineer when needed
         ↓
 uiux-designer / frontend-engineer / backend-engineer / data-ai-engineer
         ↓
 qa-engineer → code-reviewer → devops-engineer → technical-writer
 ```
 
-Esse fluxo é adaptável. Tarefas pequenas podem pular etapas; mudanças com
-autenticação, dados pessoais, pagamentos, IA, migrações, infraestrutura crítica
-ou exposição pública devem envolver as revisões adequadas.
+The flow is adaptable. Small tasks may skip stages; changes involving
+authentication, personal data, payments, AI, migrations, critical
+infrastructure, or public exposure should involve the appropriate reviews.
 
-### Catálogo rápido
+### Quick catalog
 
-| Agente | Papel | Modo |
+| Agent | Main role | Mode |
 |---|---|---|
-| `project-configurator` | Mapeia projeto, stack, comandos e regras locais | read-only |
-| `requirements-analyst` | Define requisitos e critérios de aceite | read-only |
-| `system-analyst` | Modela domínio, fluxos, estados e contratos | read-only |
-| `system-architect` | Define arquitetura, decisões e plano incremental | read-only |
-| `uiux-designer` | Define jornadas, interface e acessibilidade | read-only |
-| `frontend-engineer` | Implementa interfaces React/Next/TypeScript/Tailwind | escrita autorizada |
-| `backend-engineer` | Implementa APIs, domínio, persistência e integrações | escrita autorizada |
-| `data-ai-engineer` | Implementa dados, RAG, LLMs e avaliação de IA | escrita autorizada |
-| `qa-engineer` | Define e executa estratégia de qualidade | read-only |
-| `code-reviewer` | Revisa bugs, riscos e manutenção | read-only |
-| `security-engineer` | Analisa ameaças, controles, privacidade e abuso | read-only |
-| `devops-engineer` | Cuida de entrega, operação, observabilidade e rollback | escrita autorizada |
-| `technical-writer` | Mantém setup, decisões e documentação úteis | escrita autorizada |
+| `project-configurator` | Maps project, stack, commands, and local rules | read-only |
+| `requirements-analyst` | Defines requirements and acceptance criteria | read-only |
+| `system-analyst` | Models domain, flows, states, and contracts | read-only |
+| `system-architect` | Defines architecture, decisions, and incremental plan | read-only |
+| `uiux-designer` | Defines journeys, interface, and accessibility | read-only |
+| `frontend-engineer` | Implements React/Next/TypeScript/Tailwind interfaces | authorized writing |
+| `backend-engineer` | Implements APIs, domain, persistence, and integrations | authorized writing |
+| `data-ai-engineer` | Implements data, RAG, LLMs, and AI evaluation | authorized writing |
+| `qa-engineer` | Defines and executes quality strategy | read-only |
+| `code-reviewer` | Reviews bugs, risks, and maintenance | read-only |
+| `security-engineer` | Assesses threats, controls, privacy, and abuse | read-only |
+| `devops-engineer` | Handles delivery, operations, observability, and rollback | authorized writing |
+| `technical-writer` | Maintains setup, decisions, and useful documentation | authorized writing |
 
-Os detalhes, limites e instruções de cada agente estão nos arquivos `.toml` da
-pasta `agents/`. `system-architect` não implementa: ele entrega
-decisões, especificações e handoffs.
+The details and boundaries are in the `.toml` files under `agents/`.
+`system-architect` does not implement: it delivers decisions, specifications,
+and handoffs.
 
-## Primeiro uso
+## First use
 
-### 1. Configurar
+### 1. Configure
 
-Na raiz do repositório, execute:
+From the repository root, run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1
 ```
 
-O script conecta:
+The script connects `%USERPROFILE%\.codex\agents` to the repository's
+`agents/` folder through a Windows junction. The files remain versioned here.
+See [`setup/README.md`](setup/README.md) for the explanation, expected output,
+removal, and troubleshooting.
 
-```text
-%USERPROFILE%\.codex\agents
-        → <raiz-do-repositório>\agents
-```
-
-Isso é uma junction: o Codex acessa o caminho global, mas os arquivos continuam
-vivendo e sendo versionados neste repositório. A explicação para iniciantes,
-saída esperada, remoção e problemas comuns estão em
-[`setup/README.md`](setup/README.md).
-
-### 2. Validar
+### 2. Validate
 
 ```powershell
 python .\scripts\validate-agents.py
 ```
 
-Resultado esperado:
+Expected output includes:
 
 ```text
 agent_count=13
 missing_required=0
 unsupported_fields=0
-architect_read_only=True
+read_only_count=8
+read_only_agents=code-reviewer,project-configurator,qa-engineer,requirements-analyst,security-engineer,system-analyst,system-architect,uiux-designer
 documentation_complete=True
 validation=passed
 ```
 
-Se a validação falhar, corrija o problema antes de testar o comportamento dos
-agentes. O script não publica, não instala dependências e não acessa segredos.
+If validation fails, fix it before testing agent behavior. The script does not
+publish changes, install dependencies, or access secrets.
 
-### 3. Fazer o primeiro smoke test
+### 3. Run the first smoke test
 
-Abra a pasta do AI-DEV-TEAM no Codex e peça:
-
-```text
-Use o agente project-configurator para mapear este repositório.
-Não altere nenhum arquivo. Retorne estrutura, stack, comandos de validação,
-riscos e um handoff para requirements-analyst.
-```
-
-O resultado esperado é uma análise com evidências, sem alterações, seguida de
-um handoff claro.
-
-Depois teste o arquiteto:
+Open the AI-DEV-TEAM folder in Codex and ask:
 
 ```text
-Use system-architect para analisar uma pequena funcionalidade hipotética.
-Produza requisitos assumidos, alternativas, arquitetura, riscos, segurança,
-plano incremental e handoff. Não crie nem altere arquivos.
+Use the project-configurator agent to map this repository.
+Do not change any files. Return structure, stack, validation commands, risks,
+and a handoff to requirements-analyst.
 ```
 
-O resultado esperado é planejamento, não implementação.
+Expected result: an evidence-based analysis with no file changes and a clear
+handoff.
 
-Para o roteiro completo, incluindo teste de implementadores, QA, revisão e
-limites de segurança, siga [`docs/testing.md`](docs/testing.md).
+Then test the architect:
+
+```text
+Use system-architect to analyze a small hypothetical feature.
+Produce assumptions, alternatives, architecture, risks, security,
+an incremental plan, and a handoff. Do not create or change files.
+```
+
+Expected result: planning, not implementation. For the complete route,
+including implementers, QA, review, and security boundaries, follow
+[`docs/testing.md`](docs/testing.md).
 
 ## Handoffs
 
-Handoff é a passagem formal de um resultado para o próximo responsável. Ele não
-é uma responsabilidade adicional do agente.
+A handoff is the formal passage of a result to the next owner. It is not an
+additional responsibility for the agent.
 
-O formato mínimo é:
+Minimum format:
 
 ```text
 HANDOFF
-De: <agente>
-Para: <agente ou usuário>
-Objetivo: <resultado esperado>
-Contexto: <o que foi analisado>
-Decisões: <decisões e justificativas>
-Artefatos: <arquivos, links ou evidências>
-Pendências: <questões em aberto>
-Riscos: <riscos e mitigação>
-Próximo passo: <ação concreta e responsável>
+From: <agent>
+To: <agent or user>
+Objective: <expected result>
+Context: <what was analyzed>
+Decisions: <decisions and reasons>
+Artifacts: <files, links, or evidence>
+Open items: <unresolved questions>
+Risks: <risks and mitigations>
+Next step: <concrete action and owner>
 ```
 
-O fluxo detalhado e os casos condicionais estão em
-[`docs/workflow.md`](docs/workflow.md) e
-[`docs/handoff-protocol.md`](docs/handoff-protocol.md).
+Detailed flow and conditional cases are in [`docs/workflow.md`](docs/workflow.md)
+and [`docs/handoff-protocol.md`](docs/handoff-protocol.md).
 
-## Skills, tools e adapters
+## Skills, tools, and adapters
 
-### Skills
+Skills are reusable capabilities separate from agent identity. This first
+version has no concrete `SKILL.md` files; the planned catalog is in
+[`skills/README.md`](skills/README.md).
 
-Skills são capacidades reutilizáveis, diferentes da identidade dos agentes.
-Esta primeira versão ainda não possui skills concretas com `SKILL.md`; o
-catálogo planejado está em [`skills/README.md`](skills/README.md).
+`tools/` is reserved for shared contracts and utilities. Every tool must
+document permissions, inputs, outputs, and risks.
 
-Quando uma skill for criada, ela deve explicar quando usar, pré-requisitos,
-procedimento, validação e limites.
+`adapters/` is reserved for future integrations with Claude Code, Hermes, or
+other runtimes. An adapter may change execution format, but not agent
+responsibilities or boundaries.
 
-### Tools
+## Maintenance
 
-`tools/` será usado para contratos e utilitários compartilhados. Toda ferramenta
-deve documentar permissões, entradas, saídas e riscos.
+When changing an agent:
 
-### Adapters
+1. edit the TOML under `agents/`;
+2. preserve `name` and the primary role;
+3. run `scripts/validate-agents.py`;
+4. update affected documentation if the flow changed;
+5. repeat relevant smoke tests;
+6. review the diff before versioning.
 
-`adapters/` será usado para integrações futuras com Claude Code, Hermes ou outros
-runtimes. Um adapter não pode mudar responsabilidades ou limites do agente.
-
-## Manutenção
-
-Ao alterar um agente:
-
-1. edite o TOML em `agents/`;
-2. preserve `name` e o papel principal;
-3. execute `scripts/validate-agents.py`;
-4. atualize o documento afetado, se o fluxo mudou;
-5. repita os smoke tests relevantes;
-6. revise o diff antes de versionar.
-
-Não edite a cópia vista por meio da junction. Edite sempre a fonte em
+Do not edit the copy accessed through the junction. Always edit the source in
 `agents/`.
 
-Para entender o formato dos TOML, consulte
-[`docs/agent-contract.md`](docs/agent-contract.md). Para criar skills, siga o
-README em `skills/` e adicione um `SKILL.md` completo.
+For the TOML format, see [`docs/agent-contract.md`](docs/agent-contract.md).
+For skills, follow [`skills/README.md`](skills/README.md) and add a complete
+`SKILL.md`.
 
-## Documentos de referência
+## Reference documents
 
-Leia somente quando o assunto aparecer:
+Read these only when the topic appears:
 
-- [`AGENTS.md`](AGENTS.md) — regras globais que o Codex deve seguir;
-- [`setup/README.md`](setup/README.md) — configuração para iniciantes;
-- [`agents/README.md`](agents/README.md) — catálogo e ativação dos agentes;
-- [`docs/agent-contract.md`](docs/agent-contract.md) — schema e revisão de TOML;
-- [`docs/workflow.md`](docs/workflow.md) — ciclo de trabalho e responsabilidades;
-- [`docs/handoff-protocol.md`](docs/handoff-protocol.md) — formato de handoff;
-- [`docs/testing.md`](docs/testing.md) — validação e testes comportamentais;
-- [`scripts/README.md`](scripts/README.md) — automações disponíveis.
+- [`AGENTS.md`](AGENTS.md) — global rules the team must follow;
+- [`setup/README.md`](setup/README.md) — beginner-friendly configuration;
+- [`agents/README.md`](agents/README.md) — catalog and activation;
+- [`docs/agent-contract.md`](docs/agent-contract.md) — TOML schema and review;
+- [`docs/task-contract.md`](docs/task-contract.md) — task inputs, states,
+  budgets, approvals, retries, checkpoints, quality profiles, evidence, and
+  artifact ownership;
+- [`docs/evaluation/README.md`](docs/evaluation/README.md) — first benchmark,
+  scoring, and baseline comparison;
+- [`docs/maker-checker.md`](docs/maker-checker.md) — maker delivery, checker
+  rules, and `pass` / `revise` / `block` outcomes;
+- [`docs/workflow.md`](docs/workflow.md) — work cycle and responsibilities;
+- [`docs/handoff-protocol.md`](docs/handoff-protocol.md) — handoff format;
+- [`docs/testing.md`](docs/testing.md) — validation and behavioral tests;
+- [`docs/NEXT_STEPS.md`](docs/NEXT_STEPS.md) — milestone backlog and criteria;
+- [`docs/research/README.md`](docs/research/README.md) — research sources and decisions;
+- [`docs/glossary.md`](docs/glossary.md) — English terms explained in Portuguese;
+- [`scripts/README.md`](scripts/README.md) — available automation.
 
-O formato de agentes standalone e os diretórios suportados podem evoluir; para
-referência atual, consulte a [documentação oficial de
-Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+For current standalone-agent behavior and supported locations, see the
+[official Codex Subagents documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents).

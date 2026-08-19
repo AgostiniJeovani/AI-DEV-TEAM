@@ -1,18 +1,42 @@
-# Guia de leitura
+# Reading Guide
 
-O guia principal é o `README.md` da raiz. Este arquivo existe para orientar quem
-chegou diretamente à pasta `docs/`.
+The main guide is the root `README.md`. This file helps anyone who arrived
+directly in `docs/`.
 
-## Escolha seu objetivo
+## Choose your goal
 
-- **Conhecer o projeto:** volte ao `README.md` e leia apenas as seções iniciais.
-- **Configurar:** abra `setup/README.md`.
-- **Entender agentes:** abra `agents/README.md` e depois os TOML.
-- **Entender o fluxo:** abra `workflow.md`.
-- **Entender handoffs:** abra `handoff-protocol.md`.
-- **Testar:** abra `testing.md`.
-- **Criar ou revisar um agente:** abra `agent-contract.md`.
+### First-time path
 
-Não é necessário ler todos os documentos antes do primeiro teste. Cada arquivo
-deve ser consultado quando o assunto correspondente aparecer.
+Read these in order and stop when your question is answered:
 
+1. Root `README.md`, through **First use**.
+2. `setup/README.md`, if configuring Codex.
+3. `agents/README.md`, if learning the catalog.
+4. `docs/testing.md`, before validating behavior.
+5. `docs/task-contract.md`, only when studying the loop.
+
+You do not need to read the research archive or every run record before the
+first activation.
+
+- **Learn the project:** return to `README.md` and read only the opening sections.
+- **Configure:** open `setup/README.md`.
+- **Understand agents:** open `agents/README.md`, then the TOML files.
+- **Understand the workflow:** open `workflow.md`.
+- **Understand handoffs:** open `handoff-protocol.md`.
+- **Test:** open `testing.md`.
+- **Create or review an agent:** open `agent-contract.md`.
+- **Define a controlled task:** open `task-contract.md` and its JSON example.
+- **Learn the English terms:** open `glossary.md`.
+- **Follow the evolution plan:** open `NEXT_STEPS.md` and then `research/README.md`.
+
+## What is core and what is laboratory material?
+
+| Area | Purpose | Read when |
+|---|---|---|
+| `agents/`, `AGENTS.md`, `setup/`, `scripts/` | Activate and operate the current agent catalog | Before using the repository |
+| `docs/task-contract.md`, `docs/workflow.md`, `docs/handoff-protocol.md` | Understand the controlled workflow | When working on a task or loop |
+| `docs/evaluation/`, `docs/maker-checker.md` | Measure and improve the loop | When contributing to loop engineering |
+| `docs/research/`, `docs/NEXT_STEPS.md`, `docs/archive/` | Research, roadmap, and historical context | When studying design decisions |
+
+You do not need to read every document before the first test. Consult each
+file when its topic appears.
