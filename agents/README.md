@@ -1,22 +1,26 @@
-# Agentes
+# Agents
 
-Os arquivos desta pasta são agentes customizados compatíveis com o formato standalone do Codex. Cada arquivo contém apenas campos suportados pelo schema: `name`, `description`, `developer_instructions` e, quando necessário, `sandbox_mode`.
+The files in this folder are custom agents compatible with Codex standalone
+agent files. Each file contains only supported fields: `name`, `description`,
+`developer_instructions`, and, when needed, `sandbox_mode`.
 
-Para usar este catálogo no Codex, a configuração recomendada para este
-repositório é uma junction global:
+For Codex to use this catalog globally, the recommended configuration for this
+repository is a Windows junction:
 
 ```text
 %USERPROFILE%\.codex\agents
-    └── junction → <raiz-do-repositório>\agents
+    └── junction → <repository-root>\agents
 ```
 
-Assim, o repositório é a única fonte de verdade e o Codex enxerga os agentes
-globais sem duplicar os arquivos. O script `scripts/setup-windows.ps1` cria ou
-verifica essa junction.
+The repository remains the single source of truth while Codex sees the agents
+through its global path. `scripts/setup-windows.ps1` creates or verifies this
+junction.
 
-Como alternativa, para um projeto isolado, copie os arquivos para:
+For an isolated project, you can instead copy the files to:
 
-- `.codex/agents/` para agentes específicos daquele projeto; ou
-- `~/.codex/agents/` para agentes pessoais globais.
+- `.codex/agents/` for project-specific agents; or
+- `~/.codex/agents/` for personal global agents.
 
-O nome do arquivo deve acompanhar o campo `name`. Não fixe `model` ou `model_reasoning_effort` nesta primeira versão; o Codex pode resolver essas configurações conforme disponibilidade e configuração do ambiente.
+The filename should match the `name` field. Do not pin `model` or
+`model_reasoning_effort` in this first version; Codex can resolve these values
+from the environment and current availability.

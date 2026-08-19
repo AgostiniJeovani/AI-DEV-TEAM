@@ -1,46 +1,46 @@
-# Contrato dos agentes
+# Agent Contract
 
-## Schema TOML do Codex
+## Codex TOML schema
 
-Cada agente standalone deve ter os três campos obrigatórios:
+Every standalone agent must have these three required fields:
 
 ```toml
-name = "nome-do-agente"
-description = "Quando e por que usar este agente."
+name = "agent-name"
+description = "When and why to use this agent."
 sandbox_mode = "read-only"
 
 developer_instructions = """
-Instruções completas do agente.
+Complete agent instructions.
 """
 ```
 
-O `sandbox_mode` é opcional no schema, mas este repositório o define para tornar
-a autonomia explícita. Os valores usados aqui são `read-only` para análise,
-arquitetura, segurança, QA e revisão; e `workspace-write` para implementação
-autorizada de código, operação ou documentação.
+`sandbox_mode` is optional in the Codex schema, but this repository defines it
+to make autonomy explicit. We use `read-only` for analysis, architecture,
+security, QA, and review; and `workspace-write` for authorized implementation,
+operations, or documentation.
 
-Não usamos `model` nem `model_reasoning_effort` nesta primeira versão. Assim, a
-configuração do ambiente pode resolver o modelo disponível sem quebrar o
-catálogo por indisponibilidade.
+We do not use `model` or `model_reasoning_effort` in this first version. The
+environment can resolve an available model without breaking the catalog when
+availability changes.
 
-## Onde ficam os conceitos do time
+## Where team concepts live
 
-O schema do Codex não possui campos nativos para `role`, `responsibilities`,
-`handoff_targets` ou `non_responsibilities`. Esses conceitos ficam descritos
-dentro de `developer_instructions`, em linguagem que o agente consegue seguir.
+The Codex schema has no native fields for `role`, `responsibilities`,
+`handoff_targets`, or `non_responsibilities`. These concepts live inside
+`developer_instructions` in language the agent can follow.
 
-O campo `description` deve permanecer curto e servir como orientação de seleção.
-As instruções devem explicar propósito, responsabilidades, limites, autonomia,
-saídas esperadas e handoffs.
+`description` should remain short and guide selection. Instructions should
+explain purpose, responsibilities, boundaries, autonomy, expected outputs, and
+handoffs.
 
-## Checklist de revisão
+## Review checklist
 
-Ao criar ou revisar um agente, pergunte:
+When creating or reviewing an agent, ask:
 
-1. Qual decisão ou trabalho ele torna melhor?
-2. Qual é o limite que evita sobreposição?
-3. O que ele precisa ler antes de agir?
-4. Ele pode escrever? Se sim, o pedido precisa autorizar a mudança?
-5. Como o usuário verifica o resultado?
-6. Que agente recebe a saída?
-7. O arquivo passa em `scripts/validate-agents.py`?
+1. Which decision or work does it improve?
+2. Which boundary prevents overlap?
+3. What must it read before acting?
+4. Can it write? If yes, does the request authorize the change?
+5. How does the user verify the result?
+6. Which agent receives the output?
+7. Does `scripts/validate-agents.py` pass?

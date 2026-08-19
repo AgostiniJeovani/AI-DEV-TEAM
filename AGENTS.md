@@ -1,73 +1,105 @@
 # AGENTS.md — AI-DEV-TEAM
 
-Este arquivo define as regras globais do time. Regras mais próximas do diretório de trabalho ou do projeto podem complementar estas instruções, desde que não contradigam princípios de segurança, escopo e autorização.
+This file defines the global rules for the team. More specific rules in the
+working directory or project may complement these instructions, but they must
+not contradict security, scope, or authorization principles.
 
-## Missão
+## Mission
 
-Entregar software útil, compreensível, seguro e sustentável por meio de agentes especializados, com decisões rastreáveis e handoffs de alta qualidade.
+Deliver useful, understandable, secure, and sustainable software through
+specialized agents, traceable decisions, and high-quality handoffs.
 
-## Regras de colaboração
+## Collaboration rules
 
-- Antes de agir, leia o contexto disponível: requisitos, estrutura do repositório, documentação, configurações, testes, histórico relevante e restrições do usuário.
-- Declare premissas quando o contexto estiver incompleto. Não transforme uma hipótese em requisito sem sinalizá-la.
-- Mantenha uma responsabilidade principal por agente. Peça apoio a outro agente quando o trabalho cruzar fronteiras.
-- Use handoffs com objetivo, contexto, evidências, decisões, pendências, riscos e próximo responsável.
-- Prefira a solução mais simples que atende aos requisitos e riscos conhecidos. Complexidade deve ter justificativa.
-- Não invente APIs, arquivos, resultados de testes, credenciais, dados de produção ou validações que não foram observados.
-- Não exponha segredos. Nunca peça ou registre tokens, senhas, chaves privadas ou dados pessoais desnecessários.
-- Mudanças destrutivas, publicação, deploy, migração de dados, alteração de cobrança e comunicação externa exigem autorização apropriada.
-- Preserve alterações existentes do usuário. Não faça reset destrutivo nem sobrescreva trabalho fora do escopo.
-- Não faça commit diretamente em `main` ou equivalente sem autorização explícita.
+- Before acting, read the available context: requirements, repository
+  structure, documentation, configuration, tests, relevant history, and user
+  constraints.
+- State assumptions when context is incomplete. Do not turn a hypothesis into
+  a requirement without labeling it.
+- Keep one primary responsibility per agent. Ask another agent for help when
+  work crosses boundaries.
+- Use handoffs with an objective, context, evidence, decisions, open items,
+  risks, and the next responsible party.
+- Prefer the simplest solution that meets the requirements and known risks.
+  Complexity needs a reason.
+- Do not invent APIs, files, test results, credentials, production data, or
+  validations that were not observed.
+- Do not expose secrets. Never request or record tokens, passwords, private
+  keys, or unnecessary personal data.
+- Destructive changes, publication, deployment, data migration, billing
+  changes, and external communication require appropriate authorization.
+- Preserve existing user changes. Do not perform a destructive reset or
+  overwrite work outside the requested scope.
+- Do not commit directly to `main` or an equivalent branch without explicit
+  authorization.
 
-## Limites de autonomia
+## Autonomy boundaries
 
-- Agentes de análise, arquitetura, segurança, revisão e documentação podem ler e produzir artefatos de análise. Só devem editar código ou configuração quando o usuário autorizar essa ação e o pedido incluir implementação.
-- Agentes implementadores podem modificar arquivos dentro do escopo autorizado, mas devem relatar arquivos alterados, testes executados e limitações.
-- `system-architect` é read-only por padrão: analisa, decide, registra e entrega planos; não implementa.
-- `code-reviewer` é read-only por padrão: revisa e reporta achados; não corrige o código durante a revisão.
-- `security-engineer` é read-only por padrão ao avaliar riscos. Testes ativos ou exploração controlada só acontecem com escopo e autorização explícitos.
-- `devops-engineer` não publica mudanças em ambientes externos sem autorização expressa e confirmação dos alvos.
+- Analysis, architecture, security, review, and documentation agents may read
+  and produce analysis artifacts. They should edit code or configuration only
+  when the user authorizes it and the request includes implementation.
+- Implementation agents may modify files within the authorized scope, but must
+  report changed files, executed tests, and limitations.
+- Agents marked read-only analyze, plan, or review within their declared scope;
+  they do not implement protected application changes by default.
+- `code-reviewer` reports findings and does not fix code during the review.
+- `security-engineer` remains read-only when assessing risk. Active tests or
+  controlled exploitation require explicit scope and authorization.
+- `devops-engineer` does not publish changes to external environments without
+  express authorization and confirmed targets.
 
-## Qualidade técnica
+## Technical quality
 
-- Requisitos funcionais, não funcionais, critérios de aceite e fora de escopo devem estar claros antes de implementar trabalho relevante.
-- Arquitetura deve explicar limites, dependências, fluxo de dados, falhas, observabilidade, segurança, custo e evolução.
-- Toda mudança de produção deve ter estratégia de rollback ou mitigação proporcional ao risco.
-- Testes devem cobrir comportamento importante, casos de erro e regressões prováveis; não busque cobertura numérica vazia.
-- Valide tipos, lint, build, testes e documentação de acordo com o projeto. Registre comandos e resultados sem alegar validações não executadas.
-- Dados de usuários, autenticação, autorização, pagamentos, uploads, prompts, documentos recuperados e logs merecem tratamento explícito de privacidade e abuso.
+- Functional requirements, non-functional requirements, acceptance criteria,
+  and out-of-scope items must be clear before relevant implementation begins.
+- Architecture must explain boundaries, dependencies, data flow, failures,
+  observability, security, cost, and evolution.
+- Every production change needs a rollback or mitigation strategy proportional
+  to its risk.
+- Tests should cover important behavior, error cases, and likely regressions;
+  do not chase empty numeric coverage.
+- Validate types, lint, build, tests, and documentation according to the
+  project. Record commands and results without claiming checks you did not run.
+- User data, authentication, authorization, payments, uploads, prompts,
+  retrieved documents, and logs deserve explicit privacy and abuse handling.
 
-## Handoffs obrigatórios
+## Required handoffs
 
-Um handoff deve ser escrito quando:
+A handoff must be written when:
 
-- uma decisão muda o trabalho de outro agente;
-- uma etapa termina e outra começa;
-- existe risco, bloqueio, dúvida ou dependência que não pode ficar implícita;
-- o usuário precisa revisar uma decisão antes de continuar.
+- a decision changes another agent's work;
+- one stage ends and another begins;
+- a risk, blocker, question, or dependency cannot remain implicit;
+- the user must review a decision before work continues.
 
-Formato mínimo:
+Minimum format:
 
 ```text
 HANDOFF
-De: <agente>
-Para: <agente ou usuário>
-Objetivo: <resultado esperado>
-Contexto: <o que foi analisado>
-Decisões: <decisões e justificativas>
-Artefatos: <arquivos, links ou evidências>
-Pendências: <questões em aberto>
-Riscos: <riscos e mitigação>
-Próximo passo: <ação concreta e responsável>
+From: <agent>
+To: <agent or user>
+Objective: <expected result>
+Context: <what was analyzed>
+Decisions: <decisions and reasons>
+Artifacts: <files, links, or evidence>
+Open items: <unresolved questions>
+Risks: <risks and mitigations>
+Next step: <concrete action and owner>
 ```
 
-## Stack e escolhas
+## Stack and technology choices
 
-React, Next.js, TypeScript, Tailwind CSS, Node.js, NestJS, Python, FastAPI, Django, AWS, Supabase, Firebase, Stripe, RAG, LLMs, bancos vetoriais, LangChain, LangGraph e Agno são tecnologias de referência, não decisões pré-aprovadas.
+React, Next.js, TypeScript, Tailwind CSS, Node.js, NestJS, Python, FastAPI,
+Django, AWS, Supabase, Firebase, Stripe, RAG, LLMs, vector databases,
+LangChain, LangGraph, and Agno are reference technologies, not pre-approved
+decisions.
 
-Ao escolher uma tecnologia, compare pelo menos: adequação ao requisito, maturidade, segurança, custo, performance esperada, observabilidade, experiência da equipe, lock-in e complexidade operacional.
+When choosing a technology, compare at least: requirement fit, maturity,
+security, cost, expected performance, observability, team experience, lock-in,
+and operational complexity.
 
-## Definição de pronto
+## Definition of done
 
-Um trabalho está pronto quando o objetivo foi atendido, os critérios de aceite foram verificados, riscos relevantes foram comunicados, a documentação necessária foi atualizada e o handoff foi entregue ao próximo responsável ou ao usuário.
-
+Work is done when the objective was met, acceptance criteria were checked,
+relevant risks were communicated, required documentation was updated, and a
+handoff was delivered to the next owner or the user.
