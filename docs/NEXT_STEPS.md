@@ -1,6 +1,6 @@
 # AI-DEV-TEAM — Next Steps
 
-## Mission for this week
+## Mission for this milestone
 
 Turn the current AI-DEV-TEAM catalog into a controlled agent-loop foundation
 by Sunday, August 30, 2026.
@@ -65,10 +65,21 @@ docs/research/
 ├── README.md
 ├── SOURCES.md
 ├── NOTES.md
-└── DECISIONS.md
+├── DECISIONS.md
+└── PORTABILITY_AND_COST.md
 ```
 
-### W2 — Agent and task contracts
+### W2 — Agent and task contracts — completed for the first iteration
+
+Status: first iteration completed. The contract and state model are now the
+closed baseline for this milestone. Numeric defaults will be calibrated by the
+evaluation harness instead of guessed in isolation.
+
+The contract is documented in [`docs/task-contract.md`](task-contract.md),
+with an example in
+[`docs/examples/task-contract.json`](examples/task-contract.json). Numeric
+budget defaults and the first state-storage implementation remain open for the
+next iteration.
 
 Define a common contract for every loop task:
 
@@ -87,9 +98,28 @@ Define a common contract for every loop task:
 The contract must distinguish `completed`, `blocked`, `needs_review`,
 `failed`, `cancelled`, and `timed_out`.
 
-### W3 — Evaluation harness
+The following patterns were added to the baseline after reviewing the
+JavaScript Mastery workflow skills:
 
-Create a small benchmark of representative tasks. Each task should have a
+- durable state must live in repository files, not only in chat history;
+- every acceptance criterion receives an identifier and an evidence trail;
+- each durable artifact has one owner and other agents must not silently
+  rewrite another agent's source of truth;
+- `prototype`, `alpha`, `beta`, and `ga` quality profiles control default
+  verification depth and token cost;
+- runtime verification and independent code review are separate actions;
+- an architectural assumption must be recorded instead of being hidden;
+- a future synchronization step must flag stale documentation and decisions;
+- a task can resume from its contract and latest checkpoint without replaying
+  the whole conversation.
+
+These are design decisions for our loop, not a requirement to copy the
+external repository's commands, agents, or provider-specific behavior.
+
+### W3 — Evaluation harness — completed for the first baseline
+
+This is the next active stage. Create a small benchmark of representative
+tasks. Each task should have a
 known expected outcome and a scoring rubric covering:
 
 - correctness;
@@ -101,9 +131,32 @@ known expected outcome and a scoring rubric covering:
 - cost and latency when measurable.
 
 The harness should compare the current version with a proposed version before
-any improvement is accepted.
+any improvement is accepted. It must exercise more than successful runs:
 
-### W4 — Verification and maker/checker flow
+- a task that completes with valid evidence;
+- a task that needs revision after checker findings;
+- a task that becomes blocked by missing input or approval;
+- a task that reaches a retry or budget limit;
+- a task that tests read-only and allowed-path boundaries.
+
+The first harness should remain file-backed and provider-neutral. It should
+measure enough to compare versions without introducing a database or a
+distributed orchestration service.
+
+First baseline completed: [`docs/evaluation/manual-baseline-001.json`](evaluation/manual-baseline-001.json).
+The result is `83.67/100` with `4/5` expected states matching. The timeout
+scenario remains `in_progress` because no loop controller currently enforces
+runtime limits or writes checkpoints. This is a measured capability gap and
+the first input for W5, not a hidden failure.
+
+Initial implementation: [`docs/evaluation/README.md`](evaluation/README.md),
+[`docs/evaluation/benchmark.json`](evaluation/benchmark.json), and
+[`scripts/evaluate-workflow.py`](../scripts/evaluate-workflow.py). The
+benchmark definition validates successfully and contains five scenarios. The
+the five scenarios were run against the current manual workflow and the
+measured baseline is recorded above.
+
+### W4 — Verification and maker/checker flow — completed for the first iteration
 
 Separate production from verification:
 
@@ -120,7 +173,14 @@ pass / revise / block
 The checker must be able to reject work with concrete findings. A checker is
 not a rubber stamp and should not share the maker's assumptions blindly.
 
-### W5 — State, retries, and recovery
+Initial implementation: [`docs/maker-checker.md`](maker-checker.md) and
+[`scripts/check-workflow.py`](../scripts/check-workflow.py). The deterministic
+gate has fixtures for `pass`, `revise`, and `block`. Independent model review
+and retry orchestration remain open for this workstream. Independent review is
+now supported through a provider-neutral review report; retry orchestration is
+deferred to W5.
+
+### W5 — State, retries, and recovery — next active stage
 
 Design explicit state storage and checkpoints for a task. Define:
 
@@ -166,7 +226,7 @@ or publish changes without approval.
 
 ## Delivery plan
 
-### Monday, August 17 — Baseline and research
+### Monday, August 17 — Baseline and research intake
 
 - Run the current agent validator and junction check.
 - Freeze the current baseline output.
@@ -176,33 +236,48 @@ or publish changes without approval.
 
 Exit criteria: the baseline passes and the research questions are explicit.
 
-### Tuesday, August 18 — Contracts and state model
+### Tuesday, August 18 — Research corpus and synthesis
+
+- Expand the source set across prompt, context, harness, loops, evaluation,
+  state, orchestration, and safety.
+- Write short evidence-based notes and mark claims that need validation.
+- Record accepted, rejected, and still-open approaches.
+
+Exit criteria: the research corpus is useful enough to guide the next design
+decisions without copying articles into the repository.
+
+### Wednesday, August 19 — Contracts and state model — completed early
 
 - Define the task contract.
 - Define terminal states and approval levels.
 - Define the minimum checkpoint format.
 - Decide what belongs in prompts, context, tools, and loop state.
 
-Exit criteria: a sample task can be represented without hidden state.
+Exit criteria: a sample task can be represented without hidden state. The
+first version is complete; remaining numeric defaults will be calibrated by
+W3.
 
-### Wednesday, August 19 — Evaluation harness
+### Thursday, August 20 — Evaluation harness — completed early
 
 - Create the first benchmark tasks.
 - Define scoring rubrics and pass thresholds.
 - Add a repeatable evaluation command.
 - Capture baseline results from the current workflow.
+- Include the four quality profiles and failure paths in the benchmark.
+- Record criterion-to-evidence traceability in each result.
 
 Exit criteria: a proposed change can be compared with the baseline.
 
-### Thursday, August 20 — Maker/checker verification
+### Friday, August 21 — Maker/checker verification — completed early
 
 - Define checker responsibilities.
 - Add review gates for correctness, scope, security, and evidence.
 - Test pass, revise, and block outcomes.
+- Use the checker-revision result from the manual baseline as the first case.
 
 Exit criteria: weak work is rejected with actionable findings.
 
-### Friday, August 21 — Recovery and bounded retries
+### Monday, August 24 — Recovery and bounded retries — current next step
 
 - Implement or document checkpoints.
 - Add retry limits and stop conditions.
@@ -211,7 +286,7 @@ Exit criteria: weak work is rejected with actionable findings.
 
 Exit criteria: the loop cannot run forever and a partial failure is explainable.
 
-### Saturday, August 22 — First orchestrated loop and agent-engineer design
+### Tuesday, August 25 — First orchestrated loop and agent-engineer design
 
 - Implement the smallest useful loop prototype.
 - Connect task state, maker/checker validation, and handoffs.
@@ -220,7 +295,24 @@ Exit criteria: the loop cannot run forever and a partial failure is explainable.
 
 Exit criteria: one narrow workflow runs end to end with evidence and safe stops.
 
-### Sunday, August 23 — Integration, documentation, and review
+### Wednesday, August 26 — First narrow loop prototype
+
+- Implement the smallest useful loop around a repository-maintenance task.
+- Connect task state, maker/checker validation, and handoffs.
+- Capture evidence for every transition and terminal state.
+
+Exit criteria: one narrow workflow runs end to end in a controlled environment.
+
+### Thursday, August 27 — Safety and regression review
+
+- Test blocked, failed, cancelled, timed-out, and needs-review paths.
+- Review permissions, approval gates, retry limits, and external side effects.
+- Compare the prototype with the baseline benchmark.
+
+Exit criteria: the loop is bounded, reviewable, and does not weaken the
+original agent catalog.
+
+### Friday, August 28 — Documentation freeze and public-facing cleanup
 
 - Run the full baseline and regression suite.
 - Review permissions and external side effects.
@@ -230,6 +322,16 @@ Exit criteria: one narrow workflow runs end to end with evidence and safe stops.
 
 Exit criteria: the first loop is reproducible, bounded, documented, and ready
 for human review — not yet autonomous in unrestricted production.
+
+### Saturday and Sunday, August 29–30 — Light review and milestone close
+
+- Review the final diff and research decisions.
+- Re-run the validator and smoke checks.
+- Record known limitations and the next backlog.
+- Close the milestone only if the definition of done is satisfied.
+
+The final weekend is intentionally reserved for light review and handoff, not
+for introducing large architectural changes.
 
 ## Definition of done for this milestone
 
@@ -266,4 +368,3 @@ When returning to this project:
 4. Review the latest files under `docs/research/`.
 5. Work on the next unfinished workstream only.
 6. Update this file when scope, dates, decisions, or exit criteria change.
-
