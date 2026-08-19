@@ -49,6 +49,7 @@ def main() -> int:
     docs = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "docs" / "agent-contract.md",
             ROOT / "docs" / "handoff-protocol.md", ROOT / "docs" / "workflow.md",
             ROOT / "docs" / "reading-guide.md", ROOT / "docs" / "testing.md",
+            ROOT / "docs" / "task-contract.md", ROOT / "docs" / "glossary.md",
             ROOT / "setup" / "README.md"]
     missing_docs = [str(path.relative_to(ROOT)) for path in docs if not path.exists()]
     if missing_docs:
@@ -57,7 +58,9 @@ def main() -> int:
     print(f"unique_names={len(names) == len(set(names))}")
     print(f"missing_required={sum('missing_required=' in e for e in errors)}")
     print(f"unsupported_fields={sum('unsupported_fields=' in e for e in errors)}")
-    print(f"architect_read_only={parsed.get('system-architect', {}).get('sandbox_mode') == 'read-only'}")
+    read_only_agents = sorted(name for name in READ_ONLY if parsed.get(name, {}).get("sandbox_mode") == "read-only")
+    print(f"read_only_count={len(read_only_agents)}")
+    print(f"read_only_agents={','.join(read_only_agents)}")
     print(f"documentation_complete={not missing_docs}")
     if errors:
         print("validation=failed")

@@ -1,6 +1,9 @@
 # Skills
 
-Skills são capacidades reutilizáveis, independentes da identidade de um agente. Uma skill deve explicar quando usar, pré-requisitos, procedimento, validação e limites.
+Skills are reusable capabilities independent from an agent's identity. A skill
+must explain when to use it, prerequisites, procedure, validation, and limits.
 
-Exemplos planejados: `project-onboarding`, `requirements-analysis`, `architecture-review`, `frontend-development`, `backend-development`, `security-review`, `testing`, `code-review`, `git-workflow` e `documentation`.
-
+Planned examples: `project-onboarding`, `requirements-analysis`,
+`architecture-review`, `frontend-development`, `backend-development`,
+`security-review`, `testing`, `code-review`, `git-workflow`, and
+`documentation`.

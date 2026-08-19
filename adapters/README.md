@@ -1,4 +1,6 @@
 # Adapters
 
-Integrações futuras entre o contrato agnóstico do AI-DEV-TEAM e ambientes como Codex, Claude Code, Hermes ou outros runtimes. Um adapter deve preservar responsabilidades, limites, handoffs e permissões; apenas o formato de execução pode mudar.
-
+Future integrations between the AI-DEV-TEAM provider-neutral contract and
+environments such as Codex, Claude Code, Hermes, or other runtimes. An adapter
+must preserve responsibilities, boundaries, handoffs, and permissions; only
+the execution format may change.

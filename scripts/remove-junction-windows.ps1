@@ -11,26 +11,26 @@ $codexAgents = Join-Path (Join-Path $env:USERPROFILE ".codex") "agents"
 $destinationItem = Get-Item -LiteralPath $codexAgents -Force -ErrorAction SilentlyContinue
 
 if ($null -eq $destinationItem) {
-    Write-Output "Nenhuma junction encontrada em $codexAgents"
+    Write-Output "No junction found at $codexAgents"
     exit 0
 }
 
 if ($destinationItem.LinkType -ne "Junction") {
-    throw "O destino existe, mas não é uma junction. Nenhum arquivo foi removido: $codexAgents"
+    throw "The destination exists but is not a junction. No files were removed: $codexAgents"
 }
 
 $targetValue = @($destinationItem.Target)[0]
 $targetFullPath = [System.IO.Path]::GetFullPath($targetValue).TrimEnd("\")
 if ($targetFullPath -ne $sourceAgents) {
-    throw "A junction aponta para '$targetFullPath', não para '$sourceAgents'. Nenhum arquivo foi removido."
+    throw "The junction points to '$targetFullPath', not '$sourceAgents'. No files were removed."
 }
 
 if ($CheckOnly) {
-    Write-Output "Junction compatível encontrada: $codexAgents -> $sourceAgents"
+    Write-Output "Compatible junction found: $codexAgents -> $sourceAgents"
     exit 0
 }
 
 if ($PSCmdlet.ShouldProcess($codexAgents, "Remover somente a junction")) {
     Remove-Item -LiteralPath $codexAgents
-    Write-Output "Junction removida. Os arquivos fonte em $sourceAgents foram preservados."
+    Write-Output "Junction removed. Source files in $sourceAgents were preserved."
 }

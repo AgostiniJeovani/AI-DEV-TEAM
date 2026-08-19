@@ -16,12 +16,12 @@ function Get-NormalizedPath([string]$PathValue) {
 }
 
 if (-not (Test-Path -LiteralPath $sourceAgents -PathType Container)) {
-    throw "Diretório fonte de agentes não encontrado: $sourceAgents"
+    throw "Agent source directory not found: $sourceAgents"
 }
 
 if (-not (Test-Path -LiteralPath $codexHome -PathType Container)) {
     if ($CheckOnly) {
-        throw "Diretório do Codex não encontrado: $codexHome"
+        throw "Codex directory not found: $codexHome"
     }
     New-Item -ItemType Directory -Path $codexHome -Force | Out-Null
 }
@@ -31,24 +31,24 @@ $destinationItem = Get-Item -LiteralPath $codexAgents -Force -ErrorAction Silent
 
 if ($null -ne $destinationItem) {
     if ($destinationItem.LinkType -ne "Junction") {
-        throw "Destino já existe e não é uma junction: $codexAgents. Nenhum arquivo foi alterado."
+        throw "Destination already exists and is not a junction: $codexAgents. No files were changed."
     }
 
     $targetValue = @($destinationItem.Target)[0]
     $targetFullPath = Get-NormalizedPath $targetValue
     if ($targetFullPath -ne $sourceFullPath) {
-        throw "Junction existente aponta para '$targetFullPath', mas o esperado é '$sourceFullPath'. Nenhum arquivo foi alterado."
+        throw "Existing junction points to '$targetFullPath', but '$sourceFullPath' was expected. No files were changed."
     }
 
-    Write-Output "Junction já configurada: $codexAgents -> $sourceAgents"
+    Write-Output "Junction already configured: $codexAgents -> $sourceAgents"
 }
 elseif ($CheckOnly) {
-    throw "Junction não encontrada: $codexAgents"
+    throw "Junction not found: $codexAgents"
 }
 else {
     if ($PSCmdlet.ShouldProcess($codexAgents, "Criar junction para $sourceAgents")) {
         New-Item -ItemType Junction -Path $codexAgents -Target $sourceAgents | Out-Null
-        Write-Output "Junction criada: $codexAgents -> $sourceAgents"
+        Write-Output "Junction created: $codexAgents -> $sourceAgents"
     }
 }
 
@@ -56,13 +56,12 @@ if (-not $SkipValidation) {
     $validator = Join-Path $PSScriptRoot "validate-agents.py"
     $python = Get-Command python -ErrorAction SilentlyContinue
     if ($null -eq $python) {
-        Write-Warning "Python não encontrado; a junction foi verificada, mas a validação TOML não foi executada."
+        Write-Warning "Python not found; the junction was checked, but TOML validation was not run."
     }
     else {
         & $python.Source $validator
         if ($LASTEXITCODE -ne 0) {
-            throw "A validação dos agentes falhou com código $LASTEXITCODE."
+            throw "Agent validation failed with exit code $LASTEXITCODE."
         }
     }
 }
-

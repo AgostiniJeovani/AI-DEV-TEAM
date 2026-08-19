@@ -1,132 +1,130 @@
-# Configuração do AI-DEV-TEAM
+# AI-DEV-TEAM Setup
 
-Este guia é para quem está configurando o projeto pela primeira vez.
+This guide is for anyone configuring the project for the first time.
 
-## O que vamos fazer
+## What we will do
 
-Os agentes ficam versionados em `agents/` dentro deste repositório. O Codex
-procura agentes globais em uma pasta própria do usuário. A automação cria uma
-**junction**, que é como uma ponte de pasta:
+The agents are versioned under `agents/` in this repository. Codex looks for
+global agents in a user-specific folder. The automation creates a **junction**,
+which works like a folder bridge:
 
 ```text
 %USERPROFILE%\.codex\agents
-        → pasta agents/ deste repositório
+        → this repository's agents/ folder
 ```
 
-O Codex acessa a ponte, mas os arquivos continuam em um único lugar: o
-repositório. Assim não precisamos manter duas cópias sincronizadas.
+Codex uses the bridge, but the files remain in one place: the repository. We
+do not need to keep two copies synchronized.
 
-## Antes de começar
+## Before you start
 
-Você precisa de:
+You need:
 
 - Windows;
-- Codex instalado e funcionando;
-- este repositório salvo localmente;
-- Python 3.11 ou mais recente para o validador.
+- Codex installed and working;
+- this repository saved locally;
+- Python 3.11 or newer for the validator.
 
-Não coloque senhas, tokens ou arquivos `.env` neste repositório.
+Do not put passwords, tokens, or `.env` files in this repository.
 
-## Configuração em três passos
+## Three-step setup
 
-### Passo 1 — abra o terminal na raiz
+### Step 1 — open a terminal at the root
 
-Abra o PowerShell na pasta onde está este README. Se preferir, use:
+Open PowerShell in the folder containing this README. If preferred:
 
 ```powershell
-cd <raiz-do-repositório>
+cd <repository-root>
 ```
 
-### Passo 2 — execute a automação
+### Step 2 — run the automation
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1
 ```
 
-O script verifica a pasta dos agentes, cria a ponte se ela ainda não existir e
-confirma que ela aponta para este repositório. Ele não substitui uma pasta real
-nem uma ponte que aponte para outro lugar.
+The script checks the agent folder, creates the bridge if it does not exist,
+and confirms that it points to this repository. It never replaces a real folder
+or a junction pointing somewhere else.
 
-Se tudo estiver certo, você verá uma mensagem semelhante a:
+If everything is correct, you will see a message similar to:
 
 ```text
-Junction já configurada: ...\.codex\agents -> ...\agents
+Junction already configured: ...\.codex\agents -> ...\agents
 validation=passed
 ```
 
-Rodar o comando novamente é seguro; ele não recria uma ponte válida.
+Running the command again is safe; it does not recreate a valid junction.
 
-### Passo 3 — valide os arquivos
+### Step 3 — validate the files
 
 ```powershell
 python .\scripts\validate-agents.py
 ```
 
-Procure no final:
+Look for:
 
 ```text
 agent_count=13
 missing_required=0
 unsupported_fields=0
-architect_read_only=True
+read_only_count=8
+read_only_agents=code-reviewer,project-configurator,qa-engineer,requirements-analyst,security-engineer,system-analyst,system-architect,uiux-designer
 documentation_complete=True
 validation=passed
 ```
 
-Se aparecer `validation=failed`, leia as linhas `ERROR` e corrija o arquivo
-indicado antes de abrir o Codex.
+If `validation=failed` appears, read the `ERROR` lines and fix the indicated
+file before opening Codex.
 
-## Como confirmar visualmente
+## Visual confirmation
 
-No Explorer, abra `%USERPROFILE%\.codex\agents`. A pasta deve aparecer como
-uma junction/atalho de sistema e conter os mesmos `.toml` que estão em
-`agents/` neste repositório.
+In File Explorer, open `%USERPROFILE%\.codex\agents`. The folder should appear
+as a junction/system link and contain the same `.toml` files as `agents/` in
+this repository.
 
-Para uma confirmação técnica sem alterar nada:
+For a technical confirmation that changes nothing:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1 -CheckOnly
 ```
 
-## Como desfazer
+## Undo the setup
 
-Se quiser parar de disponibilizar o catálogo globalmente, remova apenas a
-junction:
+To stop exposing the catalog globally, remove only the junction:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\remove-junction-windows.ps1
 ```
 
-Os arquivos dentro do repositório não são apagados. O script recusa remover
-uma pasta real ou uma junction apontando para outro lugar.
+The repository files are not deleted. The script refuses to remove a real
+folder or a junction pointing somewhere else.
 
-## Problemas comuns
+## Common problems
 
-### “Python não foi encontrado”
+### “Python was not found”
 
-Instale Python 3.11+ ou execute apenas a verificação da junction com
-`-SkipValidation`. O validador continuará pendente até Python estar disponível.
+Install Python 3.11+ or run the junction check with `-SkipValidation`. TOML
+validation remains pending until Python is available.
 
-### “O destino já existe e não é uma junction”
+### “The destination already exists and is not a junction”
 
-O script parou para não apagar uma pasta real. Verifique o conteúdo e faça
-backup antes de decidir manualmente o que fazer. Não apague nada só para forçar
-o script.
+The script stopped to avoid deleting a real folder. Inspect its contents and
+make a backup before deciding manually what to do. Do not delete anything just
+to force the script.
 
-### “A junction aponta para outro lugar”
+### “The junction points somewhere else”
 
-Existe uma configuração anterior. Não use `Remove-Item` diretamente. Confirme
-o destino e use o script de remoção somente se aquela junction for realmente
-do AI-DEV-TEAM.
+An earlier configuration exists. Do not use `Remove-Item` directly. Confirm the
+target and use the removal script only if that junction really belongs to
+AI-DEV-TEAM.
 
-### O Codex não mostra os agentes
+### Codex does not show the agents
 
-1. execute o validador;
-2. execute `setup-windows.ps1 -CheckOnly`;
-3. confirme que abriu o repositório correto no Codex;
-4. reinicie a sessão do Codex se ela já estava aberta antes da configuração;
-5. verifique se os arquivos estão em `agents/` e terminam em `.toml`.
+1. run the validator;
+2. run `setup-windows.ps1 -CheckOnly`;
+3. confirm that the correct repository is open in Codex;
+4. restart the Codex session if it was already open before setup;
+5. confirm that files exist under `agents/` and end in `.toml`.
 
-Depois da configuração, volte ao README da raiz e siga a seção **Primeiro
-uso**.
-
+After setup, return to the root README and follow **First use**.

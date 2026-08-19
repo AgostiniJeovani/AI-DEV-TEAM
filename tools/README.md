@@ -1,6 +1,7 @@
 # Tools
 
-Espaço para contratos, wrappers e utilitários compartilhados pelo time. Uma ferramenta deve ter escopo, permissões, entradas, saídas e riscos documentados.
+Space for contracts, wrappers, and shared utilities. Every tool must document
+its scope, permissions, inputs, outputs, and risks.
 
-Agentes não devem presumir que uma ferramenta existe ou que tem acesso de escrita. A disponibilidade real deve ser verificada no ambiente antes do uso.
-
+Agents must not assume that a tool exists or has write access. Verify actual
+availability in the environment before using it.
