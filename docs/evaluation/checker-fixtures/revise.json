@@ -1,0 +1,15 @@
+{
+  "task_id": "checker-fixture-revise",
+  "maker": "technical-writer",
+  "artifacts": ["docs/example.md"],
+  "criteria": [
+    {"id": "AC-01", "verified": true, "evidence": ["docs/example.md"]},
+    {"id": "AC-02", "verified": false, "evidence": []}
+  ],
+  "scope": {"within_scope": true},
+  "security": {"boundary_ok": true, "unknown_side_effect": false},
+  "approval": {"required": false, "granted": true},
+  "findings": [
+    {"severity": "medium", "correctable": true, "message": "One required section is missing."}
+  ]
+}

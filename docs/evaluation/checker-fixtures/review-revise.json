@@ -1,0 +1,9 @@
+{
+  "task_id": "checker-fixture-pass",
+  "reviewer": "code-reviewer",
+  "independent": true,
+  "outcome": "revise",
+  "findings": [
+    {"severity": "medium", "message": "A regression test is missing", "correctable": true}
+  ]
+}

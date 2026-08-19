@@ -1,0 +1,7 @@
+{
+  "task_id": "checker-fixture-pass",
+  "reviewer": "code-reviewer",
+  "independent": true,
+  "outcome": "pass",
+  "findings": []
+}

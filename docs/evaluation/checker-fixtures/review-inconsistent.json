@@ -1,0 +1,9 @@
+{
+  "task_id": "checker-fixture-pass",
+  "reviewer": "untrusted-reviewer",
+  "independent": true,
+  "outcome": "pass",
+  "findings": [
+    {"severity": "high", "message": "A serious security issue is still present", "correctable": false}
+  ]
+}
