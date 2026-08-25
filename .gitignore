@@ -8,8 +8,6 @@
 .codex/cache/
 .codex/state/
 .evaluation/results/
-docs/evaluation/results/*.json
-!docs/evaluation/results/.gitkeep
 .pytest_cache/
 __pycache__/
 node_modules/

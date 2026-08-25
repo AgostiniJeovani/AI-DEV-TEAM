@@ -1,9 +1,0 @@
-{
-  "task_id": "checker-fixture-pass",
-  "reviewer": "security-engineer",
-  "independent": true,
-  "outcome": "block",
-  "findings": [
-    {"severity": "high", "message": "Authorization evidence is incomplete", "correctable": false}
-  ]
-}
