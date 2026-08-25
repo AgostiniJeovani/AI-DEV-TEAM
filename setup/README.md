@@ -1,130 +1,57 @@
-# AI-DEV-TEAM Setup
+# Setup
 
-This guide is for anyone configuring the project for the first time.
+This is step 2 of the guided path. It activates the versioned agent catalog
+for Codex on Windows.
 
-## What we will do
+## What activation does
 
-The agents are versioned under `agents/` in this repository. Codex looks for
-global agents in a user-specific folder. The automation creates a **junction**,
-which works like a folder bridge:
+The repository keeps its agent files in `agents/`. Codex discovers personal
+agents in `%USERPROFILE%\.codex\agents`. The setup script creates a Windows
+junction between those locations:
 
 ```text
-%USERPROFILE%\.codex\agents
-        → this repository's agents/ folder
+%USERPROFILE%\.codex\agents  →  <repository>\agents
 ```
 
-Codex uses the bridge, but the files remain in one place: the repository. We
-do not need to keep two copies synchronized.
+The junction is a folder bridge, not a second copy. Edit the repository files;
+never edit the global side of the bridge.
 
-## Before you start
+## Activate
 
-You need:
-
-- Windows;
-- Codex installed and working;
-- this repository saved locally;
-- Python 3.11 or newer for the validator.
-
-Do not put passwords, tokens, or `.env` files in this repository.
-
-## Three-step setup
-
-### Step 1 — open a terminal at the root
-
-Open PowerShell in the folder containing this README. If preferred:
-
-```powershell
-cd <repository-root>
-```
-
-### Step 2 — run the automation
+From the repository root, run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1
 ```
 
-The script checks the agent folder, creates the bridge if it does not exist,
-and confirms that it points to this repository. It never replaces a real folder
-or a junction pointing somewhere else.
+The script creates the junction only when safe. It refuses to replace a real
+folder or a junction that points to another location.
 
-If everything is correct, you will see a message similar to:
+## Verify or undo
 
-```text
-Junction already configured: ...\.codex\agents -> ...\agents
-validation=passed
-```
-
-Running the command again is safe; it does not recreate a valid junction.
-
-### Step 3 — validate the files
-
-```powershell
-python .\scripts\validate-agents.py
-```
-
-Look for:
-
-```text
-agent_count=13
-missing_required=0
-unsupported_fields=0
-read_only_count=8
-read_only_agents=code-reviewer,project-configurator,qa-engineer,requirements-analyst,security-engineer,system-analyst,system-architect,uiux-designer
-documentation_complete=True
-validation=passed
-```
-
-If `validation=failed` appears, read the `ERROR` lines and fix the indicated
-file before opening Codex.
-
-## Visual confirmation
-
-In File Explorer, open `%USERPROFILE%\.codex\agents`. The folder should appear
-as a junction/system link and contain the same `.toml` files as `agents/` in
-this repository.
-
-For a technical confirmation that changes nothing:
+Verify without changing anything:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1 -CheckOnly
 ```
 
-## Undo the setup
-
-To stop exposing the catalog globally, remove only the junction:
+To stop exposing this catalog globally, remove only its junction:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\remove-junction-windows.ps1
 ```
 
-The repository files are not deleted. The script refuses to remove a real
-folder or a junction pointing somewhere else.
+Neither command deletes the agent files in this repository.
 
-## Common problems
+## If activation stops
 
-### “Python was not found”
+- If Python is unavailable, install Python 3.11+ and run validation later.
+- If the destination is a real folder, inspect and back it up manually; the
+  setup script will not delete it.
+- If the junction points elsewhere, confirm its owner before using the removal
+  script.
 
-Install Python 3.11+ or run the junction check with `-SkipValidation`. TOML
-validation remains pending until Python is available.
+## Next step
 
-### “The destination already exists and is not a junction”
-
-The script stopped to avoid deleting a real folder. Inspect its contents and
-make a backup before deciding manually what to do. Do not delete anything just
-to force the script.
-
-### “The junction points somewhere else”
-
-An earlier configuration exists. Do not use `Remove-Item` directly. Confirm the
-target and use the removal script only if that junction really belongs to
-AI-DEV-TEAM.
-
-### Codex does not show the agents
-
-1. run the validator;
-2. run `setup-windows.ps1 -CheckOnly`;
-3. confirm that the correct repository is open in Codex;
-4. restart the Codex session if it was already open before setup;
-5. confirm that files exist under `agents/` and end in `.toml`.
-
-After setup, return to the root README and follow **First use**.
+Read [`scripts/README.md`](../scripts/README.md) completely to validate and
+test the activated catalog.
