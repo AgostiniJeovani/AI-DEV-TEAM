@@ -8,14 +8,14 @@ EXPECTED = {
     "project-configurator", "requirements-analyst", "system-analyst",
     "system-architect", "frontend-engineer", "backend-engineer",
     "uiux-designer", "data-ai-engineer", "qa-engineer", "code-reviewer",
-    "security-engineer", "devops-engineer", "technical-writer",
+    "security-engineer", "devops-engineer", "technical-writer", "agent-engineer",
 }
 REQUIRED = {"name", "description", "developer_instructions"}
 ALLOWED = REQUIRED | {"model", "model_reasoning_effort", "sandbox_mode", "mcp_servers", "skills"}
 READ_ONLY = {
     "project-configurator", "requirements-analyst", "system-analyst",
     "system-architect", "uiux-designer", "qa-engineer", "code-reviewer",
-    "security-engineer",
+    "security-engineer", "agent-engineer",
 }
 
 
@@ -46,11 +46,9 @@ def main() -> int:
     for name in READ_ONLY:
         if parsed.get(name, {}).get("sandbox_mode") != "read-only":
             errors.append(f"not_read_only={name}")
-    docs = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "docs" / "agent-contract.md",
-            ROOT / "docs" / "handoff-protocol.md", ROOT / "docs" / "workflow.md",
-            ROOT / "docs" / "reading-guide.md", ROOT / "docs" / "testing.md",
-            ROOT / "docs" / "task-contract.md", ROOT / "docs" / "glossary.md",
-            ROOT / "setup" / "README.md"]
+    docs = [ROOT / "README.md", ROOT / "AGENTS.md", ROOT / "agents" / "README.md",
+            ROOT / "setup" / "README.md", ROOT / "scripts" / "README.md",
+            ROOT / "docs" / "README.md", ROOT / "docs" / "evaluation" / "README.md"]
     missing_docs = [str(path.relative_to(ROOT)) for path in docs if not path.exists()]
     if missing_docs:
         errors.append(f"missing_documentation={missing_docs}")
