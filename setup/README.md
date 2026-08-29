@@ -1,20 +1,22 @@
 # Setup
 
-This is step 2 of the guided path. It activates the versioned agent catalog
-for Codex on Windows.
+This is step 2 of the guided path. It activates the versioned agent catalog and
+its reusable skills for Codex on Windows.
 
 ## What activation does
 
-The repository keeps its agent files in `agents/`. Codex discovers personal
-agents in `%USERPROFILE%\.codex\agents`. The setup script creates a Windows
-junction between those locations:
+The repository keeps agent files in `agents/` and skill folders in `skills/`.
+The setup script creates a Windows junction for the agent catalog and one safe
+child junction per AI-DEV-TEAM skill:
 
 ```text
 %USERPROFILE%\.codex\agents  →  <repository>\agents
+%USERPROFILE%\.codex\skills\<skill-name>  →  <repository>\skills\<skill-name>
 ```
 
-The junction is a folder bridge, not a second copy. Edit the repository files;
-never edit the global side of the bridge.
+These are folder bridges, not second copies. Edit files in the repository;
+never edit the global side of a bridge. The script refuses to replace a real
+folder or a junction that points elsewhere, including your unrelated skills.
 
 ## Activate
 
@@ -24,8 +26,9 @@ From the repository root, run:
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1
 ```
 
-The script creates the junction only when safe. It refuses to replace a real
-folder or a junction that points to another location.
+The script creates every junction only when safe. It validates all destinations
+before changing anything, so a conflicting folder does not leave activation
+partially configured.
 
 ## Verify or undo
 
@@ -35,13 +38,14 @@ Verify without changing anything:
 powershell -ExecutionPolicy Bypass -File .\scripts\setup-windows.ps1 -CheckOnly
 ```
 
-To stop exposing this catalog globally, remove only its junction:
+To stop exposing this catalog globally, remove only its verified agent and
+skill junctions:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\remove-junction-windows.ps1
 ```
 
-Neither command deletes the agent files in this repository.
+Neither command deletes repository files or unrelated personal skills.
 
 ## If activation stops
 

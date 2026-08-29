@@ -10,15 +10,16 @@ unapproved side effects.
 python .\scripts\validate-agents.py
 ```
 
-Success ends with `validation=passed`. The current catalog must report 14
-agents and 9 read-only agents. Run this after any change to an agent TOML or
-the catalog structure.
+Success ends with `validation=passed`. The current catalog must report 16
+agents and 9 read-only agents, plus four valid local skills. Run this after any
+change to an agent TOML, skill, or catalog structure.
 
 ## Activation commands
 
-`setup-windows.ps1` creates or verifies the Codex junction. Add `-CheckOnly`
-to inspect it without changing anything. `remove-junction-windows.ps1` removes
-only the verified AI-DEV-TEAM junction.
+`setup-windows.ps1` creates or verifies the Codex agent junction and each
+AI-DEV-TEAM skill junction. Add `-CheckOnly` to inspect them without changing
+anything. `remove-junction-windows.ps1` removes only the verified
+AI-DEV-TEAM junctions, never source files or unrelated personal skills.
 
 ## Controlled-loop commands
 
@@ -59,6 +60,18 @@ commands, and hand off to `requirements-analyst`.
 Then ask `system-architect` to analyze a small hypothetical feature without
 editing files. It should return architecture, trade-offs, risks, an incremental
 plan, and handoffs—not implementation.
+
+For the end-to-end web/cloud flow, invoke `web-cloud-project-intake` in a new
+target project. It begins with `requirements-analyst`, stops for your approval
+of the Project Brief and stack, then `web-cloud-project-delivery` coordinates
+the local build and validation. A small local CRUD app should select
+`rapid_mvp`, avoid duplicate reviewer threads, and remain `needs_review` until
+its primary UI flow is exercised in a browser at desktop and mobile widths.
+To test recovery, occupy the documented port with a known disposable process
+or serve different test pages on IPv4 and IPv6. The flow should diagnose the
+ownership and split binding through `debug-engineer`, never stop an unrelated
+process, and return the corrected run to independent QA.
+Details are in the next two guides.
 
 ## Next step
 
