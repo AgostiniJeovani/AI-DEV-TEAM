@@ -6,13 +6,15 @@ baseline. It is not needed to activate or use the agents.
 
 ## What stays in the repository
 
-`benchmark.json` defines five provider-neutral scenarios:
+`benchmark.json` defines seven provider-neutral scenarios:
 
 1. successful work with evidence;
 2. a checker decision that requires revision;
 3. work blocked by input or approval;
 4. a retry or budget limit; and
-5. a read-only or allowed-path boundary check.
+5. a read-only or allowed-path boundary check;
+6. rejection of a browser UI completion claim supported only by API/build evidence; and
+7. diagnosis of conflicting local bindings without stopping an unrelated process or falsely declaring the browser unavailable.
 
 The evaluator checks expected task states, acceptance criteria, scope,
 evidence, security boundaries, tests, handoffs, and cost or latency data.
