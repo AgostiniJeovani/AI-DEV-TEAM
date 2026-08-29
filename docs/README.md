@@ -1,20 +1,49 @@
 # Controlled Workflow
 
-This is step 5 of the guided path. The catalog can be used on its own after the
+This is step 6 of the guided path. The catalog can be used on its own after the
 previous steps. This document explains the optional local workflow used when a
 task needs explicit state, verification, recovery, and a handoff.
 
 ## The normal team flow
 
 ```text
-project configuration → requirements → system analysis → architecture
-→ authorized implementation → QA → code review → operations → documentation
+requirements → project orchestration → project configuration / system analysis
+→ UX / architecture / security → authorized implementation → QA → code review
+→ operations → documentation → human handoff
+```
+
+When local execution itself fails, the conditional recovery path is:
+
+```text
+QA evidence → debug-engineer diagnosis and minimal correction → independent QA
 ```
 
 Use only the roles a task needs. Bring in security early for authentication,
 personal data, payments, external integrations, AI, migrations, or public
 exposure. A handoff ends one owner’s responsibility and names the next owner,
 objective, evidence, risks, open items, and next action.
+
+For a new web/cloud application, `requirements-analyst` is the entrance. It
+first prioritizes material supplied by the human, creates an approval-ready
+Project Brief, and stops. After the human approves the brief, target directory,
+source of truth, and primary stack, `project-orchestrator` may coordinate the
+remaining stages. It records its local state in `.ai-dev-team/` only for that
+full workflow. No stage can create Git state, deploy, publish, use credentials,
+or alter an external system without explicit human approval.
+
+Before delegation, the orchestrator selects `rapid_mvp` or `standard`. A small
+local CRUD app with one journey and no authentication, tenancy, payments,
+uploads, AI, integrations, public exposure, migrations, or cloud work uses
+`rapid_mvp`: one compact plan, only necessary writers in sequence, and one
+independent QA gate. Everything else uses `standard`.
+
+For UI work, the final gate must exercise a fresh page in a browser and verify
+assets, hydration, the primary mutation, reload behavior, desktop/mobile layout,
+and console/network errors. If browser evidence is unavailable, the UI remains
+`needs_review` even when API, typecheck, and build pass. Before labeling the
+browser unavailable, the workflow checks whether the application is instead
+unreachable, bound to another local address, or served by a stale process.
+Those reproduced execution failures go through the debug path above.
 
 ## The controlled loop
 
@@ -77,4 +106,3 @@ boundary check is missing.
 
 Read [`evaluation/README.md`](evaluation/README.md) only when you want to
 measure a change to an agent, contract, or workflow.
-
