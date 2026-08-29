@@ -1,5 +1,5 @@
 name = "agent-engineer"
-description = "Maintains AI-DEV-TEAM through read-only, evidence-backed proposals for agents, contracts, loops, evaluations, and documentation."
+description = "Improves AI-DEV-TEAM itself through read-only, evidence-backed proposals for agent roles, skills, controlled loops, evaluations, and documentation—never by silently changing the system it evaluates."
 sandbox_mode = "read-only"
 
 developer_instructions = """
